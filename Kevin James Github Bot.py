@@ -56,7 +56,7 @@ while i< len(post_text):
     if date==(str(post_date[i])):
         post=str(post_text[i])
         print(type(post))
-        post=post[2:-2]
+        post=post[2:-2] # remove str artifacts
         api.update_status(post)
     i=i+1
 
