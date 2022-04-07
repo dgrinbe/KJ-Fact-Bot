@@ -22,7 +22,7 @@ API_key='********************'
 API_secret='****************'
 
 
-#make a request to the Twitter Bot
+#get access permission from the Twitter API for the bot
 auth = tweepy.OAuthHandler(API_key, API_secret)
 auth.set_access_token(ACCESS_TOKEN, ACCESS_TOKEN_SECRET)
 
@@ -44,8 +44,13 @@ date=f"['{date}']" #formatting the date into a string to match the values in the
 #using pandas (pd) to pull up the twitter posts. Make sure you have your spreadsheet saved in the same folder/directory as this code
 # I used an .xlsx (excel spreadsheet)
 
+
+#getting the scheduled post dates from the excel spreadsheet
 df=pd.read_excel('KJAS_github.xlsx',sheet_name=0,usecols="A")
 post_date=df.values.tolist()
+
+
+#getting the actual posts from the excel spreadsheet
 df=pd.read_excel('KJAS_github.xlsx',sheet_name=0,usecols="B")
 post_text=df.values.tolist()
 
@@ -56,7 +61,7 @@ while i< len(post_text):
     if date==(str(post_date[i])):
         post=str(post_text[i])
         print(type(post))
-        post=post[2:-2] # remove str artifacts
+        post=post[2:-2] # remove str artifacts (this'll clean up your post text)
         api.update_status(post)
     i=i+1
 
